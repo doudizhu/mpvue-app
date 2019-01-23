@@ -27,9 +27,36 @@ export default {
       // 在mpvue中，提供了一个全局小程序对象wx
       wx.login({
         success: res => {
-          console.log(res)
+          // console.log(res)
+          this.getOpenid(res.code)
         }
       })
+    },
+    // 获取openid
+    getOpenid(code){
+      // 三个参数 appid secret code
+      const appid = 'wx69b17e48d6b0184b'
+      const secret = '3381d752fea477148c255a0cf99dbebe'
+
+      // 加载动画
+      wx.showLoading({
+        title: '加载中...'
+      })
+      
+      wx.request({
+        url: this.$interfaces.getOpenid + '/' + appid + '/' + secret + '/' + code,
+        method: 'get',
+        success(res){
+          console.log(res.data)
+          wx.hideLoading()
+        },
+        fail(err){
+          console.log(err)
+          wx.hideLoading()
+        },
+      })
+
+
     },
   }  
 }
