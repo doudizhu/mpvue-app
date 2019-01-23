@@ -20,8 +20,16 @@ export default {
         this.$store.dispatch('setIsAuthenticated',true)
         this.$store.dispatch('setUser', e.mp.detail.userInfo)
         // 获取code
-
+        this.getCode()
       }  
+    },
+    getCode(){
+      // 在mpvue中，提供了一个全局小程序对象wx
+      wx.login({
+        success: res => {
+          console.log(res)
+        }
+      })
     },
   }  
 }
