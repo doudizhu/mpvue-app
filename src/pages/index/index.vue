@@ -3,12 +3,22 @@
     .login
       img(src='/static/imgs/guide_bg.jpg')
     .learn
-      button 开始学习
+      button(
+        open-type="getUserInfo"
+        @getuserinfo="getUserInfo"
+      ) 开始学习
 </template>
 
 <script>
 export default {
-  
+  methods: {
+    getUserInfo(e) {
+      // 判断授权是否成功
+      if(e.mp.detail.userInfo){
+        console.log(e.mp.detail.userInfo)
+      }  
+    },
+  }  
 }
 </script>
 
