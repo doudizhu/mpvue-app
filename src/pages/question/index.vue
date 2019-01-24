@@ -78,7 +78,9 @@ export default {
                         this.btn_title = '完成'
                     }
                 }else{
-                    console.log(this.lesson)
+                    // console.log(this.lesson)
+                    // 完成
+                    this.sendQuestions()
                 }
             }
         },
@@ -99,6 +101,20 @@ export default {
             })
             return label
         },
+        sendQuestions(){
+            this.$https.request({
+                url: this.$interfaces.myLesson,
+                method: 'post',
+                data:{
+                    // lesson拼接的问题答案
+                    lesson: this.lesson,
+                    // openid
+                    userId: this.$store.getters.openid,
+                }
+            }).then(res => {
+              console.log(res)  
+            })
+        }
     }
 }
 </script>
