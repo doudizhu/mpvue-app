@@ -74,7 +74,7 @@ export default {
                     this.currentIndex++
                     this.lesson += ','
                     // 最后一题
-                    if(this.currentIndex < this.questions.length -1){
+                    if(this.currentIndex == this.questions.length -1){
                         this.btn_title = '完成'
                     }
                 }else{
