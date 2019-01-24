@@ -6,12 +6,14 @@
                 p.title 温馨提示
                 .warn_tag 为了更好对的为您制定学习计划，请首先回答以下问题，我们会为您量身推荐相关的课程
             div(v-else)
-                p.title {{questions[currentIndex].title}}}
+                p.title {{questions[currentIndex].title}}
                 .response(v-for="(item,index) in questions[currentIndex].option" :key='index')
                     img(v-if='item.select' src='/static/imgs/selected.jpg')
                     img(v-else src='/static/imgs/unselect.jpg')
                     span {{item.label}}
-        button.qs_btn {{btn_title}}
+        button.qs_btn(
+            @click='btn_click'
+        ) {{btn_title}}
 </template>
 
 <script>
@@ -37,7 +39,22 @@ export default {
                 // console.log(res)
                 this.questions = res.questions
             })
-        }
+        },
+        btn_click(){
+            // 开始答题
+            if(!this.startqs){
+                this.startqs = true
+                this.btn_title = '下一题'
+            }
+            // 答题中
+            else if(this.currentIndex < this.questions.length -1){
+                this.currentIndex++
+                // 最后一题
+                if(this.currentIndex < this.questions.length -1){
+                    this.btn_title = '完成'
+                }
+            }
+        },
     }
 }
 </script>
