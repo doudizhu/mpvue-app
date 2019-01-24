@@ -112,7 +112,14 @@ export default {
                     userId: this.$store.getters.openid,
                 }
             }).then(res => {
-              console.log(res)  
+                // console.log(res)
+                // 存储课程信息
+                this.$store.dispatch('setLessonInfo',res)
+
+                // 跳转到学习页面
+                wx.switchTab({
+                    url: '../learn/main',
+                })
             })
         }
     }

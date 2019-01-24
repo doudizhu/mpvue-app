@@ -9,4 +9,8 @@ export const setUser = ({commit},data) => {
 export const setOpenid = ({commit},data) => {
     commit('setOpenid',data)
 }
+
+export const setLessonInfo = ({commit},data) => {
+    commit('setLessonInfo',data)
+}
   

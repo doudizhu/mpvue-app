@@ -10,6 +10,7 @@ const state = {
     isAuthenticated: false,
     user: null,
     openid: '',
+    lessonInfo: null,
 }
 
 export default new Vuex.Store({

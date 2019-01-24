@@ -9,4 +9,8 @@ export const setUser = (state,data) => {
 export const setOpenid = (state,data) => {
     state.openid = data
 }
+
+export const setLessonInfo = (state,data) => {
+    state.setLessonInfo = data
+}
   
