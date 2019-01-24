@@ -11,6 +11,6 @@ export const setOpenid = (state,data) => {
 }
 
 export const setLessonInfo = (state,data) => {
-    state.setLessonInfo = data
+    state.lessonInfo = data
 }
   

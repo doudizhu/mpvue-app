@@ -60,6 +60,10 @@ export default {
       })
       .then(res => {
         // console.log('已经测试过了')
+
+        // 存储课程信息
+        this.$store.dispatch('setLessonInfo',res)
+
         wx.switchTab({
           url: '../learn/main',
         })
