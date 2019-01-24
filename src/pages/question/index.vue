@@ -29,6 +29,7 @@ export default {
             startqs: false, // 是否显示问题列表
             currentIndex: 0, // 记录当前回答到第几道题
             btn_title: '开始答题', // 按钮的title
+            lesson: '', // 记录提交的问题
         }
     },
     onLoad(){
@@ -67,11 +68,17 @@ export default {
                 this.btn_title = '下一题'
             }
             // 答题中
-            else if(this.currentIndex < this.questions.length -1){
-                this.currentIndex++
-                // 最后一题
+            else{
+                this.lesson += this.getSelectOption()
                 if(this.currentIndex < this.questions.length -1){
-                    this.btn_title = '完成'
+                    this.currentIndex++
+                    this.lesson += ','
+                    // 最后一题
+                    if(this.currentIndex < this.questions.length -1){
+                        this.btn_title = '完成'
+                    }
+                }else{
+                    console.log(this.lesson)
                 }
             }
         },
@@ -83,7 +90,15 @@ export default {
             });
             // 将点击的选项选中
             option[index].select = !option[index].select
-        }
+        },
+        getSelectOption(){
+            const option = this.questions[this.currentIndex].option
+            let label = ''
+            option.forEach(item => {
+                if(item.select) label = item.label
+            })
+            return label
+        },
     }
 }
 </script>
