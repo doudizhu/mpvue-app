@@ -7,7 +7,11 @@
                 .warn_tag 为了更好对的为您制定学习计划，请首先回答以下问题，我们会为您量身推荐相关的课程
             div(v-else)
                 p.title {{questions[currentIndex].title}}
-                .response(v-for="(item,index) in questions[currentIndex].option" :key='index')
+                .response(
+                    v-for="(item,index) in questions[currentIndex].option" 
+                    :key='index'
+                    @click="selectAnswer(index)"
+                    )
                     img(v-if='item.select' src='/static/imgs/selected.jpg')
                     img(v-else src='/static/imgs/unselect.jpg')
                     span {{item.label}}
@@ -55,6 +59,15 @@ export default {
                 }
             }
         },
+        selectAnswer(index){
+            const option = this.questions[this.currentIndex].option
+            // 将列表中的是否选项都置为未选中
+            option.forEach(item => {
+                item.select = false
+            });
+            // 将点击的选项选中
+            option[index].select = !option[index].select
+        }
     }
 }
 </script>
