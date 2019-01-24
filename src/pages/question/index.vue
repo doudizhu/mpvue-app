@@ -17,6 +17,7 @@
                     span {{item.label}}
         button.qs_btn(
             @click='btn_click'
+            :disabled="disabled"
         ) {{btn_title}}
 </template>
 
@@ -32,6 +33,21 @@ export default {
     },
     onLoad(){
         this.getData();
+    },
+    computed: {
+        disabled(){
+            if(!this.startqs) return false
+            else{
+                const option = this.questions[this.currentIndex].option
+                let select = false
+
+                option.forEach(item => {
+                    if(item.select) select = true
+                })
+
+                return !select
+            }        
+        }
     },
     methods:{
         getData(){
