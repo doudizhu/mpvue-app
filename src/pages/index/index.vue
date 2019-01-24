@@ -59,7 +59,10 @@ export default {
         method: 'get',
       })
       .then(res => {
-        console.log('已经测试过了')
+        // console.log('已经测试过了')
+        wx.switchTab({
+          url: '../learn/main',
+        })
       })
       .catch(error => {
         // console.log('还没有测试')
