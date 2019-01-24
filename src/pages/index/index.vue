@@ -43,7 +43,9 @@ export default {
         method: 'get',
       })
       .then(res => {
-        console.log(res)
+        // console.log(res)
+        // 将openid存储vuex中
+        this.$store.dispatch('setOpenid',res.openid)
       })
       .catch(err => console.log(err))
     },

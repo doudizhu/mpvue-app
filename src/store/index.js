@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const state = {
     isAuthenticated: false,
     user: null,
+    openid: '',
 }
 
 export default new Vuex.Store({

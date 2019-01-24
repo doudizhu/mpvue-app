@@ -5,4 +5,8 @@ export const setIsAuthenticated = ({commit},data) => {
 export const setUser = ({commit},data) => {
     commit('setUser',data)
 }
+
+export const setOpenid = ({commit},data) => {
+    commit('setOpenid',data)
+}
   
