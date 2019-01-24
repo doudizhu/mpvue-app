@@ -38,25 +38,14 @@ export default {
       const appid = 'wx69b17e48d6b0184b'
       const secret = '3381d752fea477148c255a0cf99dbebe'
 
-      // 加载动画
-      wx.showLoading({
-        title: '加载中...'
-      })
-      
-      wx.request({
+      this.$https.request({
         url: this.$interfaces.getOpenid + '/' + appid + '/' + secret + '/' + code,
         method: 'get',
-        success(res){
-          console.log(res.data)
-          wx.hideLoading()
-        },
-        fail(err){
-          console.log(err)
-          wx.hideLoading()
-        },
       })
-
-
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log(err))
     },
   }  
 }
