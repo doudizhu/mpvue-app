@@ -46,8 +46,27 @@ export default {
         // console.log(res)
         // 将openid存储vuex中
         this.$store.dispatch('setOpenid',res.openid)
+
+        // 请求课程数据
+        this.isLearned(res.openid)
       })
       .catch(err => console.log(err))
+    },
+
+    isLearned(openid){
+      this.$https.request({
+        url: this.$interfaces.getMyLesson + openid,
+        method: 'get',
+      })
+      .then(res => {
+        console.log('已经测试过了')
+      })
+      .catch(error => {
+        // console.log('还没有测试')
+        wx.redirectTo({
+          url: '../question/main',
+        })
+      })
     },
   }  
 }
