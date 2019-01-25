@@ -22,10 +22,13 @@
 
         .hot_lesson
             cart-header(title='今日最热课程' @click='switchToHotLessons')
+            div(v-for='(item,index) in hotLessons' :key='index')
+                lesson-cell(:img='item.img' :title='item.title' :level='item.level' :count='item.count' :url='item.url')
 </template>
 
 <script>
 import cartHeader from '../../components/cartHeader/index' 
+import lessonCell from '../../components/lessonCell/index' 
 export default {
     data(){
         return{
@@ -53,7 +56,8 @@ export default {
         },
     },
     components:{
-        cartHeader
+        cartHeader,
+        lessonCell,
     },
     methods:{
         switchMyLesson() {
@@ -67,7 +71,8 @@ export default {
                 method: 'get',
             })
             .then(res => {
-                console.log(res)
+                // console.log(res)
+                this.hotLessons = res
             })
         },
         switchToHotLessons(){
