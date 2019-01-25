@@ -9,13 +9,13 @@
                 p 今日目标已完成
                     span {{percentage}}
         .my_lesson(v-if='mylessons.length > 0')
-            cart-header(title='我的课程' :lessonCount='lessonCount')
+            cart-header(title='我的课程' :lessonCount='lessonCount' @click="switchMyLesson")
             .lesson_wrap
                 .lesson_scroll
                     .lesson_card(v-for='(lesson,index) in mylessons' :key='index')
                         img(:src='lesson.img')
                         span {{lesson.title}}
-                    .lesson_card
+                    .lesson_card(@click='switchMyLesson')
                         img(src='/static/imgs/lookall.jpg')
         .start_lesson
             button 进入课程
@@ -50,7 +50,14 @@ export default {
     },
     components:{
         cartHeader
-    }
+    },
+    methods:{
+        switchMyLesson() {
+            wx.navigateTo({
+                url: "../mylesson/main"
+            })
+        },
+    },
 }
 </script>
 

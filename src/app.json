@@ -4,7 +4,8 @@
     "pages/question/main",
     "pages/learn/main",
     "pages/lesson/main",
-    "pages/mine/main"
+    "pages/mine/main",
+    "pages/mylesson/main"
   ],
   "tabBar": {
     "color": "#959394",
