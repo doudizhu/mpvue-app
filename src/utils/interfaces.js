@@ -5,6 +5,7 @@ const interfaces = {
     getMyLesson: domain + 'api/profiles/mylessons/',
     getQuestions: domain + 'api/profiles/questions/',
     myLesson: domain + 'api/profiles/mylesson/',
+    getHotLessons: domain + 'api/profiles/hotLessons/',
 }
 
 module.exports = interfaces;

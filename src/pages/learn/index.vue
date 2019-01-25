@@ -19,6 +19,9 @@
                         img(src='/static/imgs/lookall.jpg')
         .start_lesson
             button 进入课程
+
+        .hot_lesson
+            cart-header(title='今日最热课程' @click='switchToHotLessons')
 </template>
 
 <script>
@@ -29,6 +32,7 @@ export default {
             minutes: 0,
             percentage: "0%",
             lessonCount: 0,
+            hotLessons: [],
         }
     },
     computed: {
@@ -57,6 +61,23 @@ export default {
                 url: "../mylesson/main"
             })
         },
+        getData(){
+            this.$https.request({
+                url: this.$interfaces.getHotLessons,
+                method: 'get',
+            })
+            .then(res => {
+                console.log(res)
+            })
+        },
+        switchToHotLessons(){
+            wx.switchTab({
+                url: '../lesson/main'    
+            })
+        },
+    },
+    onLoad(){
+        this.getData()
     },
 }
 </script>
@@ -158,5 +179,12 @@ export default {
 }
 .start_lesson{
   border-bottom: 1px solid #ebeef5;
+}
+
+.hot_lesson {
+  width: 100%;
+  margin-top: 16px;
+  background-color: #fff;
+  border: 1px solid #ebeef5;
 }
 </style>
