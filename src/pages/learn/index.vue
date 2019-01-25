@@ -4,16 +4,53 @@
             img(src="/static/imgs/plan.jpg")
             .info_text
                 h4 已学习
-                    span 0
+                    span {{minutes}}
                     | 分钟
                 p 今日目标已完成
-                    span 0%
-
+                    span {{percentage}}
+        .my_lesson(v-if='mylessons.length > 0')
+            cart-header(title='我的课程' :lessonCount='lessonCount')
+            .lesson_wrap
+                .lesson_scroll
+                    .lesson_card(v-for='(lesson,index) in mylessons' :key='index')
+                        img(:src='lesson.img')
+                        span {{lesson.title}}
+                    .lesson_card
+                        img(src='/static/imgs/lookall.jpg')
+        .start_lesson
+            button 进入课程
 </template>
 
 <script>
+import cartHeader from '../../components/cartHeader/index' 
 export default {
-    
+    data(){
+        return{
+            minutes: 0,
+            percentage: "0%",
+            lessonCount: 0,
+        }
+    },
+    computed: {
+        mylessons(){
+            const lessons = []
+            // 获取课程
+            const myLesson = this.$store.getters.lessonInfo.mylessons
+            console.log(myLesson)
+            // 课程个数
+            this.lessonCount = myLesson.length
+            // 判断是否大于5，如果大于5显示前5个，否则显示所有课程
+            const count = myLesson.length > 5 ? 5 :myLesson.length
+            for(let i=0;i<count;i++){
+                lessons.push(myLesson[i])
+            }
+
+            return lessons
+        },
+    },
+    components:{
+        cartHeader
+    }
 }
 </script>
 
@@ -101,5 +138,18 @@ export default {
 }
 .start_lesson button::after {
   border: none;
+}
+
+/* 修复样式 */
+.my_lesson,
+.start_lesson{
+  background-color: #fff;
+}
+.my_lesson{
+  margin-top: 16px;
+  border-top: 1px solid #ebeef5;
+}
+.start_lesson{
+  border-bottom: 1px solid #ebeef5;
 }
 </style>
