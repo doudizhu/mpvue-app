@@ -1,5 +1,5 @@
 <template lang="pug">
-    .lesson_cell
+    .lesson_cell(@click='switchWebview')
         img(:src='img')
         .cell_text
             h4 {{title}}
@@ -16,6 +16,13 @@ export default {
         level: String,
         count: String,
         url: String,
+    },
+    methods:{
+        switchWebview(){
+            wx.navigateTo({
+                url: `../webview/main?url=${this.url}`, // 路径相对是调用方
+            })
+        },
     }
 }
 </script>

@@ -5,7 +5,8 @@
     "pages/learn/main",
     "pages/lesson/main",
     "pages/mine/main",
-    "pages/mylesson/main"
+    "pages/mylesson/main",
+    "pages/webview/main"
   ],
   "tabBar": {
     "color": "#959394",
