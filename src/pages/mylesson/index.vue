@@ -1,11 +1,11 @@
 <template lang='pug'>
     .mylesson
-        .lesson_wrap(v-for='(item,index) in myLessons' :key='index')
+        .lesson_wrap(@click='switchToWatchLesson(item)' v-for='(item,index) in myLessons' :key='index')
             img(:src='item.img')
             .lesson_info
                 h4 {{item.title}}
                 //- 小程序
-                progress(@click='switchToWatchLesson(item)' :percent='item.progress' border-radius='8' stroke-width='10')
+                progress(:percent='item.progress' border-radius='8' stroke-width='10')
                 .detail
                     span(v-if='item.lock') 完成上个课程自动开始
                     span(v-else) 已完成{{item.progress}}%
