@@ -1,5 +1,12 @@
 <template lang="pug">
-    .mylesson watch video
+    .lessonDetail
+        .lesson_head
+            video(:src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
+        .lesson_content
+            .catalogue_wrap(v-for='(item,index) in lessonDetail.catalogue' :key='index')
+                h4 {{item.name}}
+                img(v-if='item.lock' src="/static/imgs/lock.jpg")
+                img(v-else src='/static/imgs/icon_r.jpg')
 </template>
 
 <script>
@@ -9,6 +16,7 @@ export default {
             lessonDetail:{
 
             },
+            videoUrl: '',
         }    
     },
     onLoad(){
@@ -23,9 +31,63 @@ export default {
             .then(res => {
                 // console.log(res)
                 this.lessonDetail = res
+                this.videoUrl = this.lessonDetail.catalogue[0].url
+
+                // 设置标题
+                wx.setNavigationBarTitle({
+                    title: res.title,
+                })
             })
         },
     },
 }
 </script>
 
+<style>
+.lesson_head {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+}
+video {
+  width: 100%;
+  height: 100%;
+}
+.lesson_content {
+  background-color: #fff;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.catalogue_wrap {
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #ebeef5;
+  padding: 16px;
+  border-radius: 5px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.catalogue_wrap h4 {
+  width: 95%;
+  font-size: 15px;
+  font-weight: bold;
+}
+.catalogue_wrap img {
+  width: 20px;
+  height: 20px;
+}
+.level {
+  margin-right: 10px;
+}
+.active_icon {
+  position: absolute;
+  width: 3px;
+  height: 80%;
+  background-color: #009eef;
+  left: 0;
+  top: 10%;
+}
+</style>
