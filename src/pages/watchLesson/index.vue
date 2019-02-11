@@ -1,7 +1,7 @@
 <template lang="pug">
     .lessonDetail
         .lesson_head
-            video(:src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
+            video(@ended='playend' :src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
         .lesson_content
             .catalogue_wrap(v-for='(item,index) in lessonDetail.catalogue' :key='index')
                 span.active_icon(v-if='currentIndex == index')
@@ -40,6 +40,16 @@ export default {
                     title: res.title,
                 })
             })
+        },
+        playend(){
+            // 如果当前播放的不是最后一个视频，那么就跳转到下一个，下一个视频解锁,并且重置url
+            console.log(this.lessonDetail.catalogue)
+            let catelogue = this.lessonDetail.catalogue;
+            if(this.currentIndex < catelogue.length - 1){
+                this.currentIndex++;
+                catelogue[this.currentIndex].lock = false;
+                this.videoUrl = catelogue[this.currentIndex].url
+            }
         },
     },
 }
