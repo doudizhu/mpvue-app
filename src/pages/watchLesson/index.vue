@@ -3,7 +3,7 @@
         .lesson_head
             video(@ended='playend' :src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
         .lesson_content
-            .catalogue_wrap(v-for='(item,index) in lessonDetail.catalogue' :key='index')
+            .catalogue_wrap(@click='handleLesson(item,index)' v-for='(item,index) in lessonDetail.catalogue' :key='index')
                 span.active_icon(v-if='currentIndex == index')
                 h4 {{item.name}}
                 img(v-if='item.lock' src="/static/imgs/lock.jpg")
@@ -26,6 +26,8 @@ export default {
     },
     methods:{
         getData(){
+            this.currentIndex = 0 // 后端接口未同步，暂时先默认重置为0
+
             this.$https.request({
                 url: this.$interfaces.getCatalogue,
                 method: 'get',
@@ -43,12 +45,18 @@ export default {
         },
         playend(){
             // 如果当前播放的不是最后一个视频，那么就跳转到下一个，下一个视频解锁,并且重置url
-            console.log(this.lessonDetail.catalogue)
+            // console.log(this.lessonDetail.catalogue)
             let catelogue = this.lessonDetail.catalogue;
             if(this.currentIndex < catelogue.length - 1){
                 this.currentIndex++;
                 catelogue[this.currentIndex].lock = false;
                 this.videoUrl = catelogue[this.currentIndex].url
+            }
+        },
+        handleLesson(item,index){
+            if(!item.lock){
+                this.videoUrl = item.url
+                this.currentIndex = index
             }
         },
     },
