@@ -1,7 +1,7 @@
 <template lang="pug">
     .lessonDetail
         .lesson_head
-            video(@ended='playend' :src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
+            video(@timeupdate='timeupdate' @ended='playend' :src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
         .lesson_content
             .catalogue_wrap(@click='handleLesson(item,index)' v-for='(item,index) in lessonDetail.catalogue' :key='index')
                 span.active_icon(v-if='currentIndex == index')
@@ -19,6 +19,7 @@ export default {
             },
             videoUrl: '',
             currentIndex: 0,
+            duration: 0,
         }    
     },
     onLoad(){
@@ -52,12 +53,31 @@ export default {
                 catelogue[this.currentIndex].lock = false;
                 this.videoUrl = catelogue[this.currentIndex].url
             }
+
+            // 视频播放结束之后，更新数据
+            this.setLearnTime()
         },
         handleLesson(item,index){
             if(!item.lock){
                 this.videoUrl = item.url
                 this.currentIndex = index
             }
+        },
+        timeupdate(e){
+            // console.log(e)
+            // 学习时长
+            this.duration = Math.floor(e.mp.detail.duration / 60)
+        },
+        setLearnTime(){
+            // 计算今天学习的总时长 = 当前视频时长 + 之前学习时长
+            const time = this.duration + Number(wx.getStorageSync('learnInfo').minutes)
+            wx.getStorageSync({
+                key:'learnInfo',
+                data:{
+                    minutes: time,
+                    percentage: Math.floor(time / 60 * 100) + '%'
+                },
+            })
         },
     },
 }
