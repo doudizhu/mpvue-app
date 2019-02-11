@@ -4,6 +4,7 @@
             video(:src='videoUrl' autoplay='true' controls :poster='lessonDetail.img')
         .lesson_content
             .catalogue_wrap(v-for='(item,index) in lessonDetail.catalogue' :key='index')
+                span.active_icon(v-if='currentIndex == index')
                 h4 {{item.name}}
                 img(v-if='item.lock' src="/static/imgs/lock.jpg")
                 img(v-else src='/static/imgs/icon_r.jpg')
@@ -17,6 +18,7 @@ export default {
 
             },
             videoUrl: '',
+            currentIndex: 0,
         }    
     },
     onLoad(){
