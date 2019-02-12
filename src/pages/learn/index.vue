@@ -29,6 +29,7 @@
 <script>
 import cartHeader from '../../components/cartHeader/index' 
 import lessonCell from '../../components/lessonCell/index' 
+import {formatTime} from '../../utils'
 export default {
     data(){
         return{
@@ -80,9 +81,52 @@ export default {
                 url: '../lesson/main'    
             })
         },
+        setLearnInfo(){
+          let self = this
+          // 获取当前日期 2020-1-10 12:00:00 new Date()
+          let date = formatTime(new Date()).split(' ')[0]
+          // console.log(date)
+          wx.getStorage({
+            key:'date',
+            success(res){
+              // console.log(res)
+              if(res.data != date) self.storageDate(date)
+              else {
+                // 显示当前数据
+                const learnInfo = wx.getStorageSync('learnInfo')
+                self.minutes = learnInfo.minutes
+                self.percentage = learnInfo.percentage
+              }
+            },
+            fail(){
+              // 如果没有时间date 存储
+              self.storageDate(date)
+            }
+          })
+        },
+        storageDate(date){
+          // 存储当前日期，并将数据初始化
+          wx.setStorage({
+            key:'date',
+            data: date,
+          })
+
+          wx.setStorage({
+            key: 'learnInfo',
+            data: {
+              minutes: 0,
+              percentage: '0%',
+            }
+          })
+          this.minutes = 0
+          this.percentage = '0%'
+        },
     },
     onLoad(){
         this.getData()
+    },
+    onShow(){
+        this.setLearnInfo()
     },
 }
 </script>

@@ -71,7 +71,7 @@ export default {
         setLearnTime(){
             // 计算今天学习的总时长 = 当前视频时长 + 之前学习时长
             const time = this.duration + Number(wx.getStorageSync('learnInfo').minutes)
-            wx.getStorageSync({
+            wx.setStorage({
                 key:'learnInfo',
                 data:{
                     minutes: time,
