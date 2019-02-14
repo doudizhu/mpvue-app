@@ -14,12 +14,17 @@
 
         .classify
             //- 导航
-            scroll-view.btns_wrap(scroll-x)
+            scroll-view.btns_wrap(
+                scroll-x 
+                :scroll-into-view='toChildView'
+                scroll-with-animation
+            )
                 span.btns_scroll(
                     :class='{active: currentIndex == index}'
                     v-for='(item,index) in allLessons'
                     :key='index'
                     @click='switchItem(index)'
+                    :id='item.id'
                 ) {{item.name}}
 </template>
 
@@ -37,6 +42,7 @@ export default {
             circular: true,
 
             currentIndex: 0,
+            toChildView: '',
         }
     },
     onLoad(){
@@ -57,6 +63,11 @@ export default {
         },
         switchItem(index){
             this.currentIndex = index
+            this.updateView()
+        },
+        updateView(){
+            // console.log(this.allLessons)
+            this.toChildView = this.allLessons[this.currentIndex].id
         },
     },
 }
