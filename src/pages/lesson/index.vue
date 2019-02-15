@@ -29,6 +29,8 @@
             // 内容
             swiper(
                 :style='{height: swiperHeight+"rpx"}'
+                :current='currentIndex'
+                @change='swiperChange'
             )
                 block(v-for='(obj,i) in allLessons' :key='i')
                     swiper-item
@@ -93,6 +95,11 @@ export default {
             const length = this.allLessons[this.currentIndex].lessons.length
             // 更改swiperHeight的高度
             this.swiperHeight = length * 240
+        },
+        swiperChange(e){
+            // console.log(e)
+            this.currentIndex = e.mp.detail.current
+            this.updateView();
         },
     },
 }
