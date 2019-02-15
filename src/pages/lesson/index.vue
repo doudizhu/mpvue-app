@@ -26,9 +26,24 @@
                     @click='switchItem(index)'
                     :id='item.id'
                 ) {{item.name}}
+            // 内容
+            swiper(
+                :style='{height: swiperHeight+"rpx"}'
+            )
+                block(v-for='(obj,i) in allLessons' :key='i')
+                    swiper-item
+                        div(v-for='(item,index) in obj.lessons' :key='index')
+                            lessonCell(
+                                :img='item.img'
+                                :title='item.title'
+                                :level='item.level'
+                                :count='item.count'
+                                :url='item.url'
+                            )
 </template>
 
 <script>
+import lessonCell from '../../components/lessonCell/index'
 export default {
     data(){
         return {
@@ -43,7 +58,12 @@ export default {
 
             currentIndex: 0,
             toChildView: '',
+
+            swiperHeight: 240,
         }
+    },
+    components: {
+        lessonCell,
     },
     onLoad(){
         this.getData()
@@ -59,6 +79,7 @@ export default {
                 // console.log(res)
                 this.imgUrls = res.imgUrls
                 this.allLessons = res.allLessons
+                this.updateView()
             })
         },
         switchItem(index){
@@ -68,6 +89,10 @@ export default {
         updateView(){
             // console.log(this.allLessons)
             this.toChildView = this.allLessons[this.currentIndex].id
+            // 计算当前tab有多少个课程数量
+            const length = this.allLessons[this.currentIndex].lessons.length
+            // 更改swiperHeight的高度
+            this.swiperHeight = length * 240
         },
     },
 }
