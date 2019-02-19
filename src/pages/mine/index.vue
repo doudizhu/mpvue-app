@@ -20,6 +20,8 @@
         .order_info
             orderCell(icon='/static/imgs/lev.jpg' title='当前学习等级' :text='grade')
             orderCell(icon='/static/imgs/task.jpg' title='今日学习任务' :text='finish')
+        .order_info
+            orderCell(icon='/static/imgs/us.jpg' title='关于我们' @click='handleCell()')
 </template>
 
 <script>
@@ -48,6 +50,13 @@ export default {
       const learnInfo = wx.getStorageSync('learnInfo')
       this.finish = learnInfo.minutes >= 60 ? '完成' : '未完成'
       this.grade = wx.getStorageSync('grade')
+    },
+    methods: {
+      handleCell(){
+        wx.navigateTo({
+          url: '../aboutUs/main',
+        })
+      },
     },
 }
 </script>

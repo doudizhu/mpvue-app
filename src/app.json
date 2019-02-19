@@ -7,7 +7,8 @@
     "pages/mine/main",
     "pages/mylesson/main",
     "pages/webview/main",
-    "pages/watchLesson/main"
+    "pages/watchLesson/main",
+    "pages/aboutUs/main"
   ],
   "tabBar": {
     "color": "#959394",
