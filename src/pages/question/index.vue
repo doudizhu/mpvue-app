@@ -102,6 +102,12 @@ export default {
             return label
         },
         sendQuestions(){
+            // 定义默认等级为初级
+            wx.setStorage({
+                key: 'grade',
+                data: '初级',
+            })
+
             this.$https.request({
                 url: this.$interfaces.myLesson,
                 method: 'post',

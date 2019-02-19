@@ -42,6 +42,12 @@ export default {
                 wx.setNavigationBarTitle({
                     title: res.title,
                 })
+
+                // 存储等级
+                wx.setStorage({
+                    key: 'grade',
+                    data: res.level,
+                })
             })
         },
         playend(){

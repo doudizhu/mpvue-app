@@ -17,10 +17,20 @@
             .learn_detail
                 h4 直播订阅
                 span {{lessonInfo.liveCount}}
+        .order_info
+            orderCell(icon='/static/imgs/lev.jpg' title='当前学习等级' :text='grade')
+            orderCell(icon='/static/imgs/task.jpg' title='今日学习任务' :text='finish')
 </template>
 
 <script>
+import orderCell from '../../components/orderCell/index'
 export default {
+    data(){
+      return {
+        grade: '',
+        finish: '',
+      }
+    },
     computed: {
         user(){
             // console.log(this.$store.getters.user)
@@ -30,7 +40,15 @@ export default {
             // console.log(this.$store.getters.lessonInfo)
             return this.$store.getters.lessonInfo    
         },
-    }
+    },
+    components:{
+      orderCell,
+    },
+    onShow(){
+      const learnInfo = wx.getStorageSync('learnInfo')
+      this.finish = learnInfo.minutes >= 60 ? '完成' : '未完成'
+      this.grade = wx.getStorageSync('grade')
+    },
 }
 </script>
 
